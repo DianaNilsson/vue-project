@@ -5,11 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    storeProducts: null,
+    storeAnalytes: null
   },
-  mutations: {
-  },
+  mutations: {},
   actions: {
+    fetchStoreProducts() {
+      fetch("http://www7.slv.se/pestapi/produkter")
+    }
   },
-  modules: {
-  }
+  modules: {}
 })
