@@ -6,13 +6,39 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     storeProducts: null,
-    storeAnalytes: null
+    storeAnalytes: null,
+    email: ''
+
   },
-  mutations: {},
-  actions: {
-    fetchStoreProducts() {
-      fetch("http://www7.slv.se/pestapi/produkter")
+  mutations: {
+    setProducts(state, storeProducts) {
+      state.storeProducts = storeProducts
+    },
+    setAnalytes(state, storeAnalytes) {
+      state.storeAnalytes = storeAnalytes
+    },
+    updateEmail(state, email) {
+      state.email = email
     }
   },
-  modules: {}
+  actions: {
+    fetchStoreProducts({
+      commit
+    }) {
+      fetch('http://www7.slv.se/pestapi/produkter')
+        .then(response => response.json())
+        .then(result => {
+          commit('setProducts', result)
+        })
+    },
+    fetchStoreAnalytes({
+      commit
+    }) {
+      fetch('http://www7.slv.se/pestapi/analyter')
+        .then(response => response.json())
+        .then(result => {
+          commit('setAnalytes', result)
+        })
+    }
+  }
 })
